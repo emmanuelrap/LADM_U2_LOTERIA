@@ -16,18 +16,17 @@ class HiloBasico (act:MainActivity) : Thread() {
              while(ejecutar){
 
                 do {
-                    if(cartasQuedan>0){
+                    if(numbers.size>0){
                         act.runOnUiThread {
-                            var indexRemover = Random.nextInt(cartasQuedan-1)
+                            var indexRemover = Random.nextInt(numbers.size)
                             act.binding.tv.text = act.binding.tv.text.toString() + "\n" + numbers[indexRemover]
                             act.binding.tv2.text =act.binding.tv2.text.toString() + "\n" + indexRemover.toString()
+                            act.binding.tv3.text =act.binding.tv3.text.toString() + "\n" + numbers.size.toString()
                             numbers.removeAt(indexRemover)
-                           }
-                            cartasQuedan--
+                        }
                             sleep(1000)
                     }
-                } while (cartasQuedan>0)
-                 sleep(100000)
+                } while (numbers.size>0)
                 pausarHilo()
             }
         }
