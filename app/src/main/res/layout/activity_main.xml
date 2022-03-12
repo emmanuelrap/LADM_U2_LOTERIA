@@ -1,45 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="30dp"
     tools:context=".MainActivity">
 
     <TextView
+        android:paddingBottom="10dp"
         android:id="@+id/tv"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textSize="40sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="Contenido"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.245"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075" />
+        android:text="Carta" ></TextView>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/imagen"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnIniciar"
+        android:text="Iniciar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
+
+    <Button
+        android:id="@+id/btnDetener"
+        android:text="Pausar / Reanudar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
+
+    <Button
+        android:id="@+id/btnMostrar"
+        android:text="Cartas Faltantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
 
     <TextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="indice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
-        app:layout_constraintStart_toEndOf="@+id/tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Cartas Faltantes:"></TextView>
+
 
     <TextView
-        android:id="@+id/tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79" />
+        android:id="@+id/tvFaltantes"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:text=""></TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</LinearLayout>
