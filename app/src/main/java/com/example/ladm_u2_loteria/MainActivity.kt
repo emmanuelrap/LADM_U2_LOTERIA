@@ -11,10 +11,15 @@ class MainActivity : AppCompatActivity() {
     var mp:MediaPlayer?=null
     lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnSig.isEnabled=false
+
+
 
 
        var hilo1=HiloBasico(this)
@@ -33,8 +38,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMostrar.setOnClickListener {
-            hilo1.mostrar()
+            binding.tvFaltantes.text=""
+            hilo1.mostrarFaltantesTexto()
+            binding.btnSig.isEnabled=true
+
+
         }
+
+        binding.btnSig.setOnClickListener {
+            hilo1.mostrarFaltantesImagenes()
+        }
+
+
 
     }
 }
