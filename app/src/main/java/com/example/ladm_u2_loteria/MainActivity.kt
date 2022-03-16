@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.example.ladm_u2_loteria.databinding.ActivityMainBinding
 import kotlin.random.Random
 import android.media.MediaPlayer
+import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
     var mp:MediaPlayer?=null
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnSig.isEnabled=false
-
+        binding.tv2.isVisible=false
 
 
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnIniciar.setOnClickListener {
             hilo1.start()
             binding.btnIniciar.isEnabled=false
+            binding.tv2.isVisible=true
         }
 
         binding.btnDetener.setOnClickListener {
@@ -38,15 +40,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMostrar.setOnClickListener {
-            binding.tvFaltantes.text=""
-            hilo1.mostrarFaltantesTexto()
-            binding.btnSig.isEnabled=true
+            if(hilo1.arregloCartas.size==0){}
+                else{
+                    binding.tvFaltantes.text=""
+                    hilo1.mostrarFaltantesTexto()
+                    binding.btnSig.isEnabled=true
+                }
 
 
         }
 
         binding.btnSig.setOnClickListener {
-            hilo1.mostrarFaltantesImagenes()
+            if(hilo1.arregloCartas.size==0){}
+            else{
+                hilo1.mostrarFaltantesImagenes()
+        }
+
         }
 
 
