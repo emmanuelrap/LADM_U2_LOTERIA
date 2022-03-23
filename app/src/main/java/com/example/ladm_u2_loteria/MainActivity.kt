@@ -7,10 +7,17 @@ import com.example.ladm_u2_loteria.databinding.ActivityMainBinding
 import kotlin.random.Random
 import android.media.MediaPlayer
 import androidx.core.view.isVisible
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    var act = this
     var mp:MediaPlayer?=null
+    var mpCancion:MediaPlayer?=null
     lateinit var binding: ActivityMainBinding
+    var escucharMusica=true
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,47 +25,76 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnSig.isEnabled=false
-        binding.tv2.isVisible=false
+        var hiloDarCartas=HiloBasico(this)
+
+
+       val corutinaMusica= GlobalScope.launch {
+           mpCancion= MediaPlayer.create(act,R.raw.cancionloteria)
+           mpCancion?.start()
+            while(escucharMusica){
+                delay(200L)
+            }
+           mpCancion?.stop()
+           binding.btnMusica.isVisible=false
+        }
+
+
+         val corutinaOcultarCosas= GlobalScope.launch {
+             binding.tvFaltantes.isVisible = false
+             binding.btnSig.isVisible=false
+             binding.imagenFaltante1.isVisible=false
+             binding.imagenFaltante2.isVisible=false
+             binding.imagenFaltante3.isVisible=false
+             binding.imagenFaltante4.isVisible=false
+             binding.imagenFaltante5.isVisible=false
+             binding.tv2.isVisible=false
+
+         }
 
 
 
-       var hilo1=HiloBasico(this)
 
         binding.btnIniciar.setOnClickListener {
-            hilo1.start()
+            hiloDarCartas.start()
             binding.btnIniciar.isEnabled=false
-            binding.tv2.isVisible=true
         }
 
         binding.btnDetener.setOnClickListener {
-            if(hilo1.estaPausado())
-                hilo1.despausarHilo()
+            if(hiloDarCartas.estaPausado())
+                hiloDarCartas.despausarHilo()
             else
-                hilo1.pausarHilo()
+                hiloDarCartas.pausarHilo()
 
         }
 
         binding.btnMostrar.setOnClickListener {
-            if(hilo1.arregloCartas.size==0){}
+            binding.tvFaltantes.isVisible = true
+            binding.btnSig.isVisible=true
+            binding.imagenFaltante1.isVisible=true
+            binding.imagenFaltante2.isVisible=true
+            binding.imagenFaltante3.isVisible=true
+            binding.imagenFaltante4.isVisible=true
+            binding.imagenFaltante5.isVisible=true
+            binding.tv2.isVisible=true
+
+            if(hiloDarCartas.arregloCartas.size==0){}
                 else{
                     binding.tvFaltantes.text=""
-                    hilo1.mostrarFaltantesTexto()
+                    hiloDarCartas.mostrarFaltantesTexto()
                     binding.btnSig.isEnabled=true
                 }
-
-
         }
 
         binding.btnSig.setOnClickListener {
-            if(hilo1.arregloCartas.size==0){}
+            if(hiloDarCartas.arregloCartas.size==0){}
             else{
-                hilo1.mostrarFaltantesImagenes()
+                hiloDarCartas.mostrarFaltantesImagenes()
+        }
         }
 
+        binding.btnMusica.setOnClickListener {
+           escucharMusica=false
         }
-
-
 
     }
 }
