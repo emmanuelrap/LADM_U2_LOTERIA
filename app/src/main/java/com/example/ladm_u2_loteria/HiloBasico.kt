@@ -54,7 +54,21 @@ class HiloBasico (act:MainActivity) : Thread() {
                             arregloSonidos.removeAt(indexRemover)
 
                         }
-                            sleep(3000)
+                        sleep(3000)
+                        var aux= Random.nextInt(15)+10
+                        var decrementoTiempo =100L
+                        while(aux!=0){
+                            act.runOnUiThread {
+                                var aux2= Random.nextInt(arregloImagenes.size-1)
+                                act.binding.tv.text=arregloCartas[aux2]
+                                act.binding.imagen.setImageResource(arregloImagenes[aux2])
+                                aux--
+                            }
+                            decrementoTiempo=decrementoTiempo+15
+                            sleep(decrementoTiempo)
+
+
+                        }
                     }
                 } while (arregloCartas.size>0)
                // pausarHilo()

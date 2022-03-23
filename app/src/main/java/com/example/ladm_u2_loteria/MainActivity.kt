@@ -31,11 +31,26 @@ class MainActivity : AppCompatActivity() {
        val corutinaMusica= GlobalScope.launch {
            mpCancion= MediaPlayer.create(act,R.raw.cancionloteria)
            mpCancion?.start()
-            while(escucharMusica){
-                delay(200L)
+
+        }
+
+        val corutinaDetenerMusica= GlobalScope.launch {
+            binding.btnMusica.setOnClickListener {
+
+                if(escucharMusica){
+                    escucharMusica=false
+                    mpCancion?.stop()
+                    binding.btnMusica.setBackgroundResource(R.drawable.mute)
+                }else{
+                    escucharMusica=true
+                    mpCancion= MediaPlayer.create(act,R.raw.cancionloteria)
+                    mpCancion?.start()
+                    binding.btnMusica.setBackgroundResource(R.drawable.iconomusica)
+                }
+
+
             }
-           mpCancion?.stop()
-           binding.btnMusica.isVisible=false
+
         }
 
 
@@ -92,9 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
         }
 
-        binding.btnMusica.setOnClickListener {
-           escucharMusica=false
-        }
+
 
     }
 }
