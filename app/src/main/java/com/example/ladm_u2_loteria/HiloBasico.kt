@@ -8,10 +8,12 @@ import kotlin.random.Random
 class HiloBasico (act:MainActivity) : Thread() {
 
     var act=act
+    var turno=0
     var indexFaltante=0
     private var pausar =false
     private var ejecutar = true
-    val arregloCartas = mutableListOf("El Gallo","El Diablito","La Dama","El catrin","El Paraguas","La sirena","La Escalera","La Botella","El Barril", "El arbol","El melon","El valiente","El gorrito","La muerte","La pera", "La bandera","El bandolon",
+    var arregloCartasSalieron = mutableListOf(R.drawable.carta1)
+    var arregloCartas = mutableListOf("El Gallo","El Diablito","La Dama","El catrin","El Paraguas","La sirena","La Escalera","La Botella","El Barril", "El arbol","El melon","El valiente","El gorrito","La muerte","La pera", "La bandera","El bandolon",
                                         "El violoncello","La garza","El pajaro","La mano","La Bota","La luna","El cotorro","El borracho","El negrito","El corazon","La sandia","El tambor","El camaron","Las jaraz","El musico","La araña","El Soldado",
                                         "La estrella","El Cazo","El mundo","El apache","El nopal","El Alacran","La Rosa","La Calavera","La Campana","El Cantarito","El Venado","El sol","La corona","La chalupa","El pino","El pescado","La palma","La maceta","El Arpa","La rana")
 
@@ -40,6 +42,7 @@ class HiloBasico (act:MainActivity) : Thread() {
                     }
                     if(arregloCartas.size>0 ){
                         act.runOnUiThread {
+                            turno++
                             //Random
                             var indexRemover = Random.nextInt(arregloCartas.size)
                             //Sonido
@@ -48,10 +51,25 @@ class HiloBasico (act:MainActivity) : Thread() {
                             //Imagenes
                             act.binding.imagen.setImageResource(arregloImagenesCopia[indexRemover])
                             act.binding.tv.text =  arregloCartas[indexRemover]
-                            //Removicion de los que salieron
-                            arregloCartas.removeAt(indexRemover)
-                            arregloImagenesCopia.removeAt(indexRemover)
-                            arregloSonidos.removeAt(indexRemover)
+                            arregloCartasSalieron.add(arregloImagenes[indexRemover])
+                                            //imagenes anteriores
+                            if(arregloImagenes.size==54){
+                                act.binding.imagenAnt1.setImageResource(arregloCartasSalieron[turno])
+                            }else
+                            if(arregloImagenes.size==53){
+                                act.binding.imagenAnt1.setImageResource(arregloCartasSalieron[turno])
+                                act.binding.imagenAnt2.setImageResource(arregloCartasSalieron[turno-1])
+                            }else
+                              {
+                                 act.binding.imagenAnt1.setImageResource(arregloCartasSalieron[turno])
+                                 act.binding.imagenAnt2.setImageResource(arregloCartasSalieron[turno-1])
+                                 act.binding.imagenAnt3.setImageResource(arregloCartasSalieron[turno-2])
+                             }
+                              //Removicion de los que salieron
+                               arregloCartas.removeAt(indexRemover)
+                               arregloImagenesCopia.removeAt(indexRemover)
+                               arregloSonidos.removeAt(indexRemover)
+
 
                         }
                         //Simulacion Ruleta

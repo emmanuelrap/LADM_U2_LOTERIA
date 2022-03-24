@@ -69,6 +69,9 @@ class MainActivity : AppCompatActivity() {
              binding.imagenFaltante3.isVisible=false
              binding.imagenFaltante4.isVisible=false
              binding.imagenFaltante5.isVisible=false
+             binding.imagenAnt1.isVisible=false
+             binding.imagenAnt2.isVisible=false
+             binding.imagenAnt3.isVisible=false
              binding.tv2.isVisible=false
              binding.btnDetener.isVisible=false
              binding.btnMostrar.isVisible=false
@@ -92,6 +95,10 @@ class MainActivity : AppCompatActivity() {
             binding.btnMostrar.isVisible=true
             binding.tv.isVisible=true
             binding.videoView.isVisible=false
+
+            binding.imagenAnt1.isVisible=true
+            binding.imagenAnt2.isVisible=true
+            binding.imagenAnt3.isVisible=true
 
             binding.imagen.isVisible=true
            // barajear()

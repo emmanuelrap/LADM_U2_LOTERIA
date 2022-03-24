@@ -53,14 +53,46 @@
         android:text=""
         android:textSize="60sp"></Button>
 
-    <ImageView
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:paddingLeft="55dp"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
 
-        android:layout_gravity="center"
-        android:id="@+id/imagen"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imagenAnt3"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imagenAnt2"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imagenAnt1"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                tools:srcCompat="@tools:sample/avatars" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imagen"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </LinearLayout>
 
 
     <Button
