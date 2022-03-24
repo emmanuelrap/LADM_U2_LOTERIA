@@ -54,8 +54,9 @@ class HiloBasico (act:MainActivity) : Thread() {
                             arregloSonidos.removeAt(indexRemover)
 
                         }
+                        //Simulacion Ruleta
                         sleep(3000)
-                        var aux= Random.nextInt(15)+10
+                        var aux= Random.nextInt(10)+5
                         var decrementoTiempo =100L
                         while(aux!=0){
                             act.runOnUiThread {
@@ -64,18 +65,29 @@ class HiloBasico (act:MainActivity) : Thread() {
                                 act.binding.imagen.setImageResource(arregloImagenes[aux2])
                                 aux--
                             }
-                            decrementoTiempo=decrementoTiempo+15
+                            decrementoTiempo=decrementoTiempo+50
                             sleep(decrementoTiempo)
+                        }
 
-
+                        //poner cartas faltantes
+                        if(arregloCartas.size==0){}
+                        else{
+                            act.runOnUiThread {
+                                act.binding.tvFaltantes.text = ""
+                                mostrarFaltantesTexto()
+                                act.binding.btnSig.isEnabled = true
+                            }
                         }
                     }
+
                 } while (arregloCartas.size>0)
-               // pausarHilo()
+
             }
         }
 
-        fun mostrarFaltantesTexto(){
+
+
+    fun mostrarFaltantesTexto(){
             act.runOnUiThread {
                 var aux=arregloImagenes.size
                 while (aux>0){
@@ -88,6 +100,8 @@ class HiloBasico (act:MainActivity) : Thread() {
                 mostrarFaltantesImagenes()
 
             }
+
+
         }
 
     fun mostrarFaltantesImagenes(){
@@ -139,4 +153,8 @@ class HiloBasico (act:MainActivity) : Thread() {
         }
 
 
+
     }
+
+
+
