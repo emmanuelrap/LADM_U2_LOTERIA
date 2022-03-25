@@ -15,6 +15,7 @@ import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
     var act = this
+    var reiniciado=false
     var mp:MediaPlayer?=null
     var mpCancion:MediaPlayer?=null
     lateinit var binding: ActivityMainBinding
@@ -87,81 +88,60 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        fun prepararPantalla() {
+            binding.btnIniciar.isVisible = false
+            binding.btnDetener.isVisible = true
+            binding.btnMostrar.isVisible = true
+            binding.tv.isVisible = true
+            binding.videoView.isVisible = false
 
-        binding.btnIniciar.setOnClickListener {
-            hiloDarCartas.start()
-            binding.btnIniciar.isVisible=false
-            binding.btnDetener.isVisible=true
-            binding.btnMostrar.isVisible=true
-            binding.tv.isVisible=true
-            binding.videoView.isVisible=false
+            binding.imagenAnt1.isVisible = true
+            binding.imagenAnt2.isVisible = true
+            binding.imagenAnt3.isVisible = true
 
-            binding.imagenAnt1.isVisible=true
-            binding.imagenAnt2.isVisible=true
-            binding.imagenAnt3.isVisible=true
-
-            binding.imagen.isVisible=true
-           // barajear()
-
+            binding.imagen.isVisible = true
         }
 
+            binding.btnIniciar.setOnClickListener {
+                hiloDarCartas.start()
+                prepararPantalla()
 
-
-        binding.btnDetener.setOnClickListener {
-
-            if(hiloDarCartas.estaPausado()){
-                Toast.makeText(this,"REANUDAR",Toast.LENGTH_LONG).show()
-                hiloDarCartas.despausarHilo()
-            }
-            else {
-                Toast.makeText(this,"PAUSADO",Toast.LENGTH_LONG).show()
-                hiloDarCartas.pausarHilo()
             }
 
-        }
 
-        binding.btnMostrar.setOnClickListener {
-            binding.tvFaltantes.isVisible = true
-            binding.btnSig.isVisible=true
-            binding.imagenFaltante1.isVisible=true
-            binding.imagenFaltante2.isVisible=true
-            binding.imagenFaltante3.isVisible=true
-            binding.imagenFaltante4.isVisible=true
-            binding.imagenFaltante5.isVisible=true
-            binding.tv2.isVisible=true
+            binding.btnDetener.setOnClickListener {
 
-        }
+                if(hiloDarCartas.estaPausado()){
+                    Toast.makeText(this,"REANUDAR",Toast.LENGTH_LONG).show()
+                    hiloDarCartas.despausarHilo()
+                }
+                else {
+                    Toast.makeText(this,"PAUSADO",Toast.LENGTH_LONG).show()
+                    hiloDarCartas.pausarHilo()
+                }
 
-        binding.btnSig.setOnClickListener {
-            if(hiloDarCartas.arregloCartas.size==0){}
-            else{
-                hiloDarCartas.mostrarFaltantesImagenes()
-        }
+            }
+
+            binding.btnMostrar.setOnClickListener {
+                binding.tvFaltantes.isVisible = true
+                binding.btnSig.isVisible=true
+                binding.imagenFaltante1.isVisible=true
+                binding.imagenFaltante2.isVisible=true
+                binding.imagenFaltante3.isVisible=true
+                binding.imagenFaltante4.isVisible=true
+                binding.imagenFaltante5.isVisible=true
+                binding.tv2.isVisible=true
+
+            }
+
+            binding.btnSig.setOnClickListener {
+                if(hiloDarCartas.arregloCartas.size==0){}
+                else{
+                    hiloDarCartas.mostrarFaltantesImagenes()
+                }
+            }
+
+
         }
 
     }
-/*
-     fun barajear(){
-        mostrarBarajando()
-        var aux=50
-        while(aux!=0){
-            act.runOnUiThread {
-                var aux2= Random.nextInt(arregloImagenes.size-1)
-                binding.imagen.setImageResource(arregloImagenes[aux2])
-                aux--
-            }
-            sleep(100)
-        }
-    }
-
-     fun mostrarBarajando(){
-
-        var porcentaje =0
-        while (porcentaje<=100){
-        binding.tv.text="BARAJEANDO ${porcentaje}%"
-        sleep(100)
-        porcentaje=porcentaje+2
-        }
-
-    }*/
-}

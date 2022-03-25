@@ -97,7 +97,7 @@
 
     <Button
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/btnDetener"
         android:text="Pausar / Reanudar"
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
 
     <Button
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/btnMostrar"
         android:text="Cartas Faltantes"
         android:layout_width="match_parent"
@@ -149,35 +149,35 @@
         <ImageView
             android:id="@+id/imagenFaltante1"
             android:layout_width="70dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:src="@drawable/carta5"/>
 
         <ImageView
             android:id="@+id/imagenFaltante2"
             android:layout_width="70dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:src="@drawable/carta5" />
 
         <ImageView
             android:id="@+id/imagenFaltante3"
             android:layout_width="70dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:src="@drawable/carta5"/>
 
         <ImageView
             android:id="@+id/imagenFaltante4"
             android:layout_width="70dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:src="@drawable/carta5"/>
 
         <ImageView
             android:id="@+id/imagenFaltante5"
             android:layout_width="70dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:src="@drawable/carta5"/>
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.example.ladm_u2_loteria
 import android.media.MediaPlayer
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import kotlin.random.Random
 
 class HiloBasico (act:MainActivity) : Thread() {
@@ -32,15 +34,13 @@ class HiloBasico (act:MainActivity) : Thread() {
                         R.raw.carta50, R.raw.carta51,R.raw.carta52,R.raw.carta53,R.raw.carta54)
 
         override fun run() {
-
             super.run()
             var arregloImagenesCopia=arregloImagenes
-             while(ejecutar){
                 do {
+                    if(ejecutar) {
                     while(pausar){
                         sleep(500)
                     }
-                    if(arregloCartas.size>0 ){
                         act.runOnUiThread {
                             turno++
                             //Random
@@ -52,7 +52,7 @@ class HiloBasico (act:MainActivity) : Thread() {
                             act.binding.imagen.setImageResource(arregloImagenesCopia[indexRemover])
                             act.binding.tv.text =  arregloCartas[indexRemover]
                             arregloCartasSalieron.add(arregloImagenes[indexRemover])
-                                            //imagenes anteriores
+                            //imagenes anteriores
                             if(arregloImagenes.size==54){
                                 act.binding.imagenAnt1.setImageResource(arregloCartasSalieron[turno])
                             }else
@@ -73,34 +73,39 @@ class HiloBasico (act:MainActivity) : Thread() {
 
                         }
                         //Simulacion Ruleta
-                        sleep(3000)
-                        var aux= Random.nextInt(10)+5
-                        var decrementoTiempo =100L
-                        while(aux!=0){
-                            act.runOnUiThread {
-                                var aux2= Random.nextInt(arregloImagenes.size-1)
-                                act.binding.tv.text=arregloCartas[aux2]
-                                act.binding.imagen.setImageResource(arregloImagenes[aux2])
-                                aux--
+
+                            sleep(3000)
+                            var aux = 5
+                            var decrementoTiempo = 100L
+                            while (aux != 0) {
+                                act.runOnUiThread {
+                                    var aux2 = Random.nextInt(arregloImagenes.size - 1)
+                                    act.binding.tv.text = arregloCartas[aux2]
+                                    act.binding.imagen.setImageResource(arregloImagenes[aux2])
+                                    aux--
+                                    act.mp = MediaPlayer.create(act, R.raw.sonidouno)
+                                    act.mp?.start()
+                                }
+                                decrementoTiempo +=100
+                                sleep(decrementoTiempo)
                             }
-                            decrementoTiempo=decrementoTiempo+50
-                            sleep(decrementoTiempo)
+                            act.mp = MediaPlayer.create(act, R.raw.sonidodos)
+                            act.mp?.start()
+
+                            //poner cartas faltantes
+                            if (arregloCartas.size == 0)
+                            else {
+                                act.runOnUiThread {
+                                    act.binding.tvFaltantes.text = ""
+                                    mostrarFaltantesTexto()
+                                    act.binding.btnSig.isEnabled = true
+                                }
+                            }
                         }
 
-                        //poner cartas faltantes
-                        if(arregloCartas.size==0){}
-                        else{
-                            act.runOnUiThread {
-                                act.binding.tvFaltantes.text = ""
-                                mostrarFaltantesTexto()
-                                act.binding.btnSig.isEnabled = true
-                            }
-                        }
-                    }
+                } while (arregloCartas.size>0 && ejecutar)
+                 act.runOnUiThread { Toast.makeText(act,"JUEGO TERMINADO", Toast.LENGTH_SHORT).show()}
 
-                } while (arregloCartas.size>0)
-
-            }
         }
 
 
@@ -112,14 +117,11 @@ class HiloBasico (act:MainActivity) : Thread() {
                     act.binding.tvFaltantes.text = act.binding.tvFaltantes.text.toString()+ "\n"+arregloCartas[aux-1]
                     aux--
                 }
-
                 //mostrar imagen faltantes
                 indexFaltante=arregloImagenes.size-1
                 mostrarFaltantesImagenes()
 
             }
-
-
         }
 
     fun mostrarFaltantesImagenes(){
