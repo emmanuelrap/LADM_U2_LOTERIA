@@ -36,13 +36,12 @@ class HiloBasico (act:MainActivity) : Thread() {
         override fun run() {
             super.run()
             var arregloImagenesCopia=arregloImagenes
-                do {
-                    if(ejecutar) {
+            while (turno<52 && ejecutar){
+                turno++
                     while(pausar){
                         sleep(500)
                     }
                         act.runOnUiThread {
-                            turno++
                             //Random
                             var indexRemover = Random.nextInt(arregloCartas.size)
                             //Sonido
@@ -52,6 +51,7 @@ class HiloBasico (act:MainActivity) : Thread() {
                             act.binding.imagen.setImageResource(arregloImagenesCopia[indexRemover])
                             act.binding.tv.text =  arregloCartas[indexRemover]
                             arregloCartasSalieron.add(arregloImagenes[indexRemover])
+
                             //imagenes anteriores
                             if(arregloImagenes.size==54){
                                 act.binding.imagenAnt1.setImageResource(arregloCartasSalieron[turno])
@@ -70,12 +70,11 @@ class HiloBasico (act:MainActivity) : Thread() {
                                arregloImagenesCopia.removeAt(indexRemover)
                                arregloSonidos.removeAt(indexRemover)
 
-
                         }
                         //Simulacion Ruleta
 
                             sleep(3000)
-                            var aux = 5
+                            var aux = Random.nextInt(9)+2
                             var decrementoTiempo = 100L
                             while (aux != 0) {
                                 act.runOnUiThread {
@@ -87,10 +86,16 @@ class HiloBasico (act:MainActivity) : Thread() {
                                     act.mp?.start()
                                 }
                                 decrementoTiempo +=100
+
                                 sleep(decrementoTiempo)
                             }
+
+                            act.mp?.release()
+                            sleep(200L)
                             act.mp = MediaPlayer.create(act, R.raw.sonidodos)
                             act.mp?.start()
+
+
 
                             //poner cartas faltantes
                             if (arregloCartas.size == 0)
@@ -100,13 +105,10 @@ class HiloBasico (act:MainActivity) : Thread() {
                                     mostrarFaltantesTexto()
                                     act.binding.btnSig.isEnabled = true
                                 }
-                            }
+                          }
                         }
-
-                } while (arregloCartas.size>0 && ejecutar)
-                 act.runOnUiThread { Toast.makeText(act,"JUEGO TERMINADO", Toast.LENGTH_SHORT).show()}
-
-        }
+                          act.runOnUiThread { Toast.makeText(act,"JUEGO TERMINADO", Toast.LENGTH_SHORT).show()}
+                }
 
 
 
@@ -171,8 +173,6 @@ class HiloBasico (act:MainActivity) : Thread() {
         fun estaPausado(): Boolean{
             return pausar
         }
-
-
 
     }
 

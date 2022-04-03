@@ -1,17 +1,17 @@
 package com.example.ladm_u2_loteria
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.TextView
-import com.example.ladm_u2_loteria.databinding.ActivityMainBinding
-import kotlin.random.Random
+import android.app.Activity
+import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.ladm_u2_loteria.databinding.ActivityMainBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Thread.sleep
+
 
 class MainActivity : AppCompatActivity() {
     var act = this
@@ -110,7 +110,6 @@ class MainActivity : AppCompatActivity() {
 
 
             binding.btnDetener.setOnClickListener {
-
                 if(hiloDarCartas.estaPausado()){
                     Toast.makeText(this,"REANUDAR",Toast.LENGTH_LONG).show()
                     hiloDarCartas.despausarHilo()
@@ -121,6 +120,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+
+        binding.btnReiniciar.setOnClickListener {
+            hiloDarCartas.terminarHilo()
+            restartActivity(this)
+        }
 
             binding.btnMostrar.setOnClickListener {
                 binding.tvFaltantes.isVisible = true
@@ -140,8 +144,15 @@ class MainActivity : AppCompatActivity() {
                     hiloDarCartas.mostrarFaltantesImagenes()
                 }
             }
-
-
         }
 
+    fun restartActivity(act: Activity) {
+        mp?.pause()
+        mpCancion?.pause()
+        val intent = Intent()
+        intent.setClass(act, act.javaClass)
+        act.startActivity(intent)
+        act.finish()
     }
+
+}
